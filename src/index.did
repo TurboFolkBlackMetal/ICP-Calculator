@@ -1,0 +1,9 @@
+service: () -> {
+    add: (int, int) -> (text);
+    clearHistory: () -> ();
+    divide: (int, int) -> (text);
+    getAllCalculations: () -> (vec record {id:text; result:int; operands:vec int; operation:text}) query;
+    getCalculationById: (text) -> (opt record {id:text; result:int; operands:vec int; operation:text}) query;
+    multiply: (int, int) -> (text);
+    subtract: (int, int) -> (text);
+}
