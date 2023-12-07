@@ -1,9 +1,19 @@
-service: () -> {
-    add: (int, int) -> (text);
-    clearHistory: () -> ();
-    divide: (int, int) -> (text);
-    getAllCalculations: () -> (vec record {id:text; result:int; operands:vec int; operation:text}) query;
-    getCalculationById: (text) -> (opt record {id:text; result:int; operands:vec int; operation:text}) query;
-    multiply: (int, int) -> (text);
-    subtract: (int, int) -> (text);
+type Calculation = record {
+  id : text;
+  result : int;
+  operands : vec int;
+  operation : text;
+};
+type _AzleResult = variant { Ok : text; Err : text };
+type _AzleResult_1 = variant { Ok; Err : text };
+type _AzleResult_2 = variant { Ok : vec Calculation; Err : text };
+type _AzleResult_3 = variant { Ok : Calculation; Err : text };
+service : () -> {
+  add : (int, int) -> (_AzleResult);
+  clearHistory : () -> (_AzleResult_1);
+  divide : (int, int) -> (_AzleResult);
+  getAllCalculations : () -> (_AzleResult_2) query;
+  getCalculationById : (text) -> (_AzleResult_3) query;
+  multiply : (int, int) -> (_AzleResult);
+  subtract : (int, int) -> (_AzleResult);
 }
