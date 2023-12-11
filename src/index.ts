@@ -10,7 +10,6 @@ import {
   text,
   update,
 } from "azle";
-import { v4 as uuidv4 } from "uuid";
 
 // Define the Calculation structure
 const Calculation = Record({
@@ -29,56 +28,52 @@ export default Canister({
   // Addition function
   add: update([int, int], text, (a, b) => {
     const result = a + b;
-    const id = uuidv4();
-    calculationStorage.insert(id, {
-      id: id,
+    calculationStorage.insert(result.toString(), {
+      id: result.toString(),
       operation: "add",
       operands: [a, b],
       result: result,
     });
-    return id;
+    return result.toString();
   }),
 
   // Subtraction function
   subtract: update([int, int], text, (a, b) => {
     const result = a - b;
-    const id = uuidv4();
-    calculationStorage.insert(id, {
-      id: id,
+    calculationStorage.insert(result.toString(), {
+      id: result.toString(),
       operation: "subtract",
       operands: [a, b],
       result: result,
     });
-    return id;
+    return result.toString();
   }),
 
   // Multiplication function
   multiply: update([int, int], text, (a, b) => {
     const result = a * b;
-    const id = uuidv4();
-    calculationStorage.insert(id, {
-      id: id,
+    calculationStorage.insert(result.toString(), {
+      id: result.toString(),
       operation: "multiply",
       operands: [a, b],
       result: result,
     });
-    return id;
+    return result.toString();
   }),
 
   // Division function
   divide: update([int, int], text, (a, b) => {
     if (b === BigInt(0)) {
-      throw new Error("Division by zero is not allowed");
+      return "Error: Division by zero is not allowed";
     }
     const result = Math.floor(Number(a) / Number(b));
-    const id = uuidv4();
-    calculationStorage.insert(id, {
-      id: id,
+    calculationStorage.insert(result.toString(), {
+      id: result.toString(),
       operation: "divide",
       operands: [a, b],
       result: result,
     });
-    return id;
+    return result.toString();
   }),
 
   // Retrieve a specific calculation by ID
